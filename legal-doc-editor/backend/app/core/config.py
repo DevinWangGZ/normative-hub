@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days
     
     # CORS
-    ALLOWED_HOSTS: List[str] = ["http://localhost:3000", "http://localhost:5173"]
+    ALLOWED_HOSTS: List[str] = ["http://localhost:3001", "http://localhost:5173"]
     
     class Config:
         env_file = ".env"
