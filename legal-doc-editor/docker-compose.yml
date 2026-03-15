@@ -30,7 +30,7 @@ services:
   backend:
     build: ./backend
     ports:
-      - "8000:8000"
+      - "9000:9000"
     environment:
       - DATABASE_URL=mysql+aiomysql://root:password@host.docker.internal:3306/legaldoc
       - REDIS_URL=  # 留空不使用 Redis
@@ -40,7 +40,7 @@ services:
         condition: service_started
     volumes:
       - ./backend/app:/app/app
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn app.main:app --host 0.0.0.0 --port 9000 --reload
 
   # 前端
   frontend:
@@ -51,7 +51,7 @@ services:
       - ./frontend:/app
       - /app/node_modules
     environment:
-      - REACT_APP_API_URL=http://localhost:8000/api/v1
+      - REACT_APP_API_URL=http://localhost:9000/api/v1
     command: npm run dev
 
 volumes:

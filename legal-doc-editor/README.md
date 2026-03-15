@@ -34,7 +34,7 @@ SECRET_KEY=your-secret-key
 **3. 启动服务**
 ```bash
 # 终端1 - 后端
-uvicorn app.main:app --reload --port 8000
+uvicorn app.main:app --reload --port 9000
 
 # 终端2 - 前端
 cd frontend
