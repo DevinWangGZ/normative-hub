@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>法律文书编辑器 - 原型</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', 'Noto Sans SC', sans-serif; }
+        .sidebar-item:hover { background: #f3f4f6; }
+        .block-hover:hover { background: #f9fafb; }
+        .command-menu {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+<!-- 原型1: 文档编辑页 -->
+<div class="mb-8">
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden" style="width: 1200px; height: 700px;">
+        <!-- 顶部栏 -->
+        <div class="h-14 bg-white border-b flex items-center justify-between px-4">
+            <div class="flex items-center gap-4">
+                <div class="w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold text-sm">法</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="font-semibold text-gray-800">服务条款 v2.0</span>
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </div>
+                <span class="text-xs text-green-600 bg-green-50 px-2 py-1 rounded">已保存</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="flex -space-x-2">
+                    <div class="w-8 h-8 rounded-full bg-blue-500 border-2 border-white flex items-center justify-center text-white text-xs">张</div>
+                    <div class="w-8 h-8 rounded-full bg-purple-500 border-2 border-white flex items-center justify-center text-white text-xs">李</div>
+                </div>
+                <button class="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded">分享</button>
+                <button class="px-3 py-1.5 text-sm bg-slate-800 text-white rounded hover:bg-slate-700">导出</button>
+                <div class="w-8 h-8 rounded-full bg-gray-300"></div>
+            </div>
+        </div>
+
+        <div class="flex" style="height: calc(100% - 56px);">
+            <!-- 左侧边栏 -->
+            <div class="w-64 bg-gray-50 border-r flex flex-col">
+                <div class="p-4">
+                    <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">文档大纲</div>
+                    <div class="space-y-1">
+                        <div class="sidebar-item px-2 py-1.5 rounded text-sm text-gray-700 cursor-pointer flex items-center gap-2">
+                            <span class="text-slate-600">1.</span> 总则
+                        </div>
+                        <div class="sidebar-item px-2 py-1.5 rounded text-sm text-gray-600 cursor-pointer flex items-center gap-2 pl-6">
+                            <span class="text-slate-500">1.1</span> 目的和依据
+                        </div>
+                        <div class="sidebar-item px-2 py-1.5 rounded text-sm text-gray-600 cursor-pointer flex items-center gap-2 pl-6">
+                            <span class="text-slate-500">1.2</span> 适用范围
+                        </div>
+                        <div class="sidebar-item px-2 py-1.5 rounded text-sm text-gray-700 cursor-pointer flex items-center gap-2 bg-slate-200">
+                            <span class="text-slate-600">2.</span> 定义
+                        </div>
+                        <div class="sidebar-item px-2 py-1.5 rounded text-sm text-gray-600 cursor-pointer flex items-center gap-2 pl-6">
+                            <span class="text-slate-500">2.1</span> 术语解释
+                        </div>
+                        <div class="sidebar-item px-2 py-1.5 rounded text-sm text-gray-700 cursor-pointer flex items-center gap-2">
+                            <span class="text-slate-600">3.</span> 权利义务
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-auto p-4 border-t">
+                    <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">引用库</div>
+                    <div class="space-y-1">
+                        <div class="sidebar-item px-2 py-1.5 rounded text-sm text-gray-600 cursor-pointer flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            法规库
+                        </div>
+                        <div class="sidebar-item px-2 py-1.5 rounded text-sm text-gray-600 cursor-pointer flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/></svg>
+                            条款模板
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 编辑区 -->
+            <div class="flex-1 bg-white overflow-y-auto">
+                <div class="max-w-3xl mx-auto py-12 px-8">
+                    <!-- 文档标题 -->
+                    <h1 class="text-3xl font-bold text-gray-900 mb-8">用户服务条款</h1>
+                    
+                    <!-- 第一章 -->
+                    <div class="mb-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                            <span class="text-slate-600">第一章</span>
+                            <span>总则</span>
+                        </h2>
+                        
+                        <div class="block-hover p-2 -mx-2 rounded group cursor-text mb-3">
+                            <div class="flex items-start gap-3">
+                                <span class="text-slate-500 font-medium text-sm mt-1">第一条</span>
+                                <p class="text-gray-700 leading-relaxed flex-1">为规范平台服务行为，保护用户合法权益，根据《中华人民共和国民法典》《中华人民共和国电子商务法》等相关法律法规，制定本服务条款。</p>
+                            </div>
+                            <div class="opacity-0 group-hover:opacity-100 flex gap-1 ml-12 mt-1">
+                                <button class="p-1 hover:bg-gray-200 rounded"><svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg></button>
+                                <button class="p-1 hover:bg-gray-200 rounded"><svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg></button>
+                            </div>
+                        </div>
+                        
+                        <div class="block-hover p-2 -mx-2 rounded group cursor-text mb-3">
+                            <div class="flex items-start gap-3">
+                                <span class="text-slate-500 font-medium text-sm mt-1">第二条</span>
+                                <p class="text-gray-700 leading-relaxed flex-1">本条款适用于平台提供的所有服务。用户在使用服务前应当仔细阅读并同意本条款。如用户不同意本条款任何内容，应立即停止使用服务。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 第二章 -->
+                    <div class="mb-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                            <span class="text-slate-600">第二章</span>
+                            <span>定义</span>
+                        </h2>
+                        
+                        <div class="block-hover p-2 -mx-2 rounded group cursor-text mb-3 border-l-2 border-yellow-400 bg-yellow-50">
+                            <div class="flex items-start gap-3">
+                                <span class="text-slate-500 font-medium text-sm mt-1">第三条</span>
+                                <div class="flex-1">
+                                    <p class="text-gray-700 leading-relaxed">本条款所称"用户"，是指通过注册或其他方式使用平台服务的自然人、法人或非法人组织。</p>
+                                    <div class="mt-2 text-xs text-yellow-700 bg-yellow-100 px-2 py-1 rounded inline-flex items-center gap-1">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                                        张律师 添加了批注：建议明确区分"注册用户"与"访客"
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="block-hover p-2 -mx-2 rounded group cursor-text">
+                            <div class="flex items-start gap-3">
+                                <span class="text-slate-500 font-medium text-sm mt-1">第四条</span>
+                                <p class="text-gray-700 leading-relaxed flex-1">本条款所称"服务内容"，是指平台通过互联网向用户提供的<span class="bg-blue-100 text-blue-800 px-1 rounded">信息服务、交易撮合服务及相关技术服务</span>。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 输入提示 -->
+                    <div class="mt-8 text-gray-400 text-sm flex items-center gap-2">
+                        <span class="text-gray-300">输入</span>
+                        <kbd class="px-2 py-0.5 bg-gray-100 rounded text-xs">/</kbd>
+                        <span class="text-gray-300">呼出命令菜单</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧批注面板 -->
+            <div class="w-72 bg-gray-50 border-l p-4">
+                <div class="text-sm font-semibold text-gray-700 mb-4">批注 (2)</div>
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded-lg shadow-sm border">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs">张</div>
+                            <span class="text-xs text-gray-500">张律师 · 10分钟前</span>
+                        </div>
+                        <p class="text-sm text-gray-700">建议明确区分"注册用户"与"访客"的定义</p>
+                        <div class="mt-2 flex gap-2">
+                            <button class="text-xs text-blue-600 hover:underline">回复</button>
+                            <button class="text-xs text-gray-400 hover:underline">解决</button>
+                        </div>
+                    </div>
+                    <div class="bg-white p-3 rounded-lg shadow-sm border">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-white text-xs">李</div>
+                            <span class="text-xs text-gray-500">李法务 · 1小时前</span>
+                        </div>
+                        <p class="text-sm text-gray-700">引用民法典第1034条需要更新至最新版本</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="text-center text-gray-500 text-sm mt-2">原型 1/3 · 文档编辑页</p>
+</div>
+
+<!-- 原型2: 文档管理首页 -->
+<div class="mb-8">
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden" style="width: 1200px; height: 700px;">
+        <!-- 顶部栏 -->
+        <div class="h-14 bg-white border-b flex items-center justify-between px-6">
+            <div class="flex items-center gap-6">
+                <div class="w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold text-sm">法</span>
+                </div>
+                <div class="relative">
+                    <svg class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    <input type="text" placeholder="搜索文档..." class="pl-10 pr-4 py-2 bg-gray-100 rounded-lg text-sm w-80 focus:outline-none focus:ring-2 focus:ring-slate-300">
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <button class="flex items-center gap-2 px-4 py-2 bg-slate-800 text-white rounded-lg hover:bg-slate-700 text-sm font-medium">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    新建文档
+                </button>
+                <button class="p-2 hover:bg-gray-100 rounded-lg"><svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg></button>
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-purple-500"></div>
+            </div>
+        </div>
+
+        <div class="p-6">
+            <!-- 最近编辑 -->
+            <div class="mb-8">
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">最近编辑</h2>
+                <div class="flex gap-4">
+                    <div class="w-48 p-4 bg-white border rounded-xl hover:shadow-md transition-shadow cursor-pointer group">
+                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-3">
+                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        </div>
+                        <h3 class="font-medium text-gray-800 mb-1">劳动合同模板</h3>
+                        <p class="text-xs text-gray-400">昨天 14:30 · 编辑中</p>
+                        <div class="mt-3 flex -space-x-1">
+                            <div class="w-5 h-5 rounded-full bg-blue-500 border border-white"></div>
+                        </div>
+                    </div>
+                    <div class="w-48 p-4 bg-white border rounded-xl hover:shadow-md transition-shadow cursor-pointer">
+                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mb-3">
+                            <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        </div>
+                        <h3 class="font-medium text-gray-800 mb-1">隐私政策</h3>
+                        <p class="text-xs text-gray-400">3天前 · 已发布</p>
+                        <div class="mt-3 flex -space-x-1">
+                            <div class="w-5 h-5 rounded-full bg-blue-500 border border-white"></div>
+                            <div class="w-5 h-5 rounded-full bg-purple-500 border border-white"></div>
+                        </div>
+                    </div>
+                    <div class="w-48 p-4 bg-white border rounded-xl hover:shadow-md transition-shadow cursor-pointer">
+                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mb-3">
+                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        </div>
+                        <h3 class="font-medium text-gray-800 mb-1">服务条款</h3>
+                        <p class="text-xs text-gray-400">上周 · 审核中</p>
+                    </div>
+                    <div class="w-48 p-4 border-2 border-dashed border-gray-200 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-slate-400 hover:bg-gray-50 transition-colors">
+                        <svg class="w-8 h-8 text-gray-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                        <span class="text-sm text-gray-500">新建文档</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 我的文档 -->
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-gray-800">我的文档</h2>
+                    <button class="text-sm text-slate-600 hover:text-slate-800">查看全部</button>
+                </div>
+                <div class="bg-white border rounded-xl overflow-hidden">
+                    <div class="flex items-center px-4 py-3 border-b hover:bg-gray-50 cursor-pointer">
+                        <svg class="w-5 h-5 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        <div class="flex-1">
+                            <span class="font-medium text-gray-800">劳动合同模板.docx</span>
+                        </div>
+                        <span class="px-2 py-1 text-xs bg-yellow-100 text-yellow-700 rounded mr-4">编辑中</span>
+                        <span class="text-sm text-gray-400 w-24">2小时前</span>
+                        <button class="p-1 hover:bg-gray-200 rounded"><svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/></svg></button>
+                    </div>
+                    <div class="flex items-center px-4 py-3 border-b hover:bg-gray-50 cursor-pointer">
+                        <svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                        <div class="flex-1">
+                            <span class="font-medium text-gray-800">数据安全规范.pdf</span>
+                        </div>
+                        <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded mr-4">已发布</span>
+                        <span class="text-sm text-gray-400 w-24">昨天</span>
+                        <button class="p-1 hover:bg-gray-200 rounded"><svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/></svg></button>
+                    </div>
+                    <div class="flex items-center px-4 py-3 hover:bg-gray-50 cursor-pointer">
+                        <svg class="w-5 h-5 text-gray-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+                        <div class="flex-1">
+                            <span class="font-medium text-gray-800">合规文档</span>
+                        </div>
+                        <span class="text-sm text-gray-400 mr-4">3个文件</span>
+                        <span class="text-sm text-gray-400 w-24">上周</span>
+                        <button class="p-1 hover:bg-gray-200 rounded"><svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/></svg></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 团队空间 -->
+            <div>
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">团队空间</h2>
+                <div class="flex gap-3">
+                    <div class="px-4 py-2 bg-slate-800 text-white rounded-lg text-sm font-medium cursor-pointer">法务部</div>
+                    <div class="px-4 py-2 bg-white border rounded-lg text-sm text-gray-600 cursor-pointer hover:bg-gray-50">合规部</div>
+                    <div class="px-4 py-2 bg-white border rounded-lg text-sm text-gray-600 cursor-pointer hover:bg-gray-50">标准委员会</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="text-center text-gray-500 text-sm mt-2">原型 2/3 · 文档管理首页</p>
+</div>
+
+<!-- 原型3: 模板选择页 -->
+<div class="mb-8">
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden" style="width: 1200px; height: 700px;">
+        <!-- 顶部栏 -->
+        <div class="h-14 bg-white border-b flex items-center px-6">
+            <button class="flex items-center gap-2 text-gray-600 hover:text-gray-800 mr-6">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                <span>返回</span>
+            </button>
+            <h1 class="text-lg font-semibold text-gray-800">选择模板</h1>
+        </div>
+
+        <div class="flex" style="height: calc(100% - 56px);">
+            <!-- 左侧筛选 -->
+            <div class="w-64 bg-gray-50 border-r p-4">
+                <div class="mb-6">
+                    <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">文档类型</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" checked class="rounded text-slate-800 focus:ring-slate-800">
+                            <span class="text-sm text-gray-700">全部</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" class="rounded text-slate-800 focus:ring-slate-800">
+                            <span class="text-sm text-gray-600">合同类</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" class="rounded text-slate-800 focus:ring-slate-800">
+                            <span class="text-sm text-gray-600">规范类</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" class="rounded text-slate-800 focus:ring-slate-800">
+                            <span class="text-sm text-gray-600">法律文件</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" class="rounded text-slate-800 focus:ring-slate-800">
+                            <span class="text-sm text-gray-600">公司制度</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">适用行业</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" class="rounded text-slate-800 focus:ring-slate-800">
+                            <span class="text-sm text-gray-600">互联网</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" class="rounded text-slate-800 focus:ring-slate-800">
+                            <span class="text-sm text-gray-600">金融</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" class="rounded text-slate-800 focus:ring-slate-800">
+                            <span class="text-sm text-gray-600">制造业</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" class="rounded text-slate-800 focus:ring-slate-800">
+                            <span class="text-sm text-gray-600">医疗</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 模板列表 -->
+            <div class="flex-1 p-6 overflow-y-auto">
+                <div class="mb-4 text-sm text-gray-500">共找到 24 个模板</div>
+                <div class="grid grid-cols-3 gap-4">
+                    <!-- 模板卡片 1 -->
+                    <div class="bg-white border rounded-xl overflow-hidden hover:shadow-lg transition-all cursor-pointer group">
+                        <div class="h-32 bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+                            <svg class="w-12 h-12 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold text-gray-800 mb-1">劳动合同</span>
+                            <p class="text-sm text-gray-500 mb-3">标准劳动合同模板</p>
+                            <div class="flex items-center justify-between">
+                                <span class="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded">合同类</span>
+                                <button class="text-sm text-slate-600 hover:text-slate-800 opacity-0 group-hover:opacity-100 transition-opacity">预览 →</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 模板卡片 2 -->
+                    <div class="bg-white border rounded-xl overflow-hidden hover:shadow-lg transition-all cursor-pointer group">
+                        <div class="h-32 bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center">
+                            <svg class="w-12 h-12 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold text-gray-800 mb-1">保密协议</span>
+                            <p class="text-sm text-gray-500 mb-3">NDA保密协议模板</p>
+                            <div class="flex items-center justify-between">
+                                <span class="px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded">合同类</span>
+                                <button class="text-sm text-slate-600 hover:text-slate-800 opacity-0 group-hover:opacity-100 transition-opacity">预览 →</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 模板卡片 3 -->
+                    <div class="bg-white border rounded-xl overflow-hidden hover:shadow-lg transition-all cursor-pointer group">
+                        <div class="h-32 bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center">
+                            <svg class="w-12 h-12 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold text-gray-800 mb-1">隐私政策</span>
+                            <p class="text-sm text-gray-500 mb-3">GDPR合规版</p>
+                            <div class="flex items-center justify-between">
+                                <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded">规范类</span>
+                                <button class="text-sm text-slate-600 hover:text-slate-800 opacity-0 group-hover:opacity-100 transition-opacity">预览 →</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 模板卡片 4 -->
+                    <div class="bg-white border rounded-xl overflow-hidden hover:shadow-lg transition-all cursor-pointer group">
+                        <div class="h-32 bg-gradient-to-br from-orange-50 to-amber-100 flex items-center justify-center">
+                            <svg class="w-12 h-12 text-orange-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold text-gray-800 mb-1">服务条款</span>
+                            <p class="text-sm text-gray-500 mb-3">SaaS平台标准版</p>
+                            <div class="flex items-center justify-between">
+                                <span class="px-2 py-1 text-xs bg-orange-100 text-orange-700 rounded">规范类</span>
+                                <button class="text-sm text-slate-600 hover:text-slate-800 opacity-0 group-hover:opacity-100 transition-opacity">预览 →</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 模板卡片 5 -->
+                    <div class="bg-white border rounded-xl overflow-hidden hover:shadow-lg transition-all cursor-pointer group">
+                        <div class="h-32 bg-gradient-to-br from-red-50 to-rose-100 flex items-center justify-center">
+                            <svg class="w-12 h-12 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold text-gray-800 mb-1">知识产权转让</span>
+                            <p class="text-sm text-gray-500 mb-3">IP转让协议模板</p>
+                            <div class="flex items-center justify-between">
+                                <span class="px-2 py-1 text-xs bg-red-100 text-red-700 rounded">合同类</span>
+                                <button class="text-sm text-slate-600 hover:text-slate-800 opacity-0 group-hover:opacity-100 transition-opacity">预览 →</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 模板卡片 6 -->
+                    <div class="bg-white border rounded-xl overflow-hidden hover:shadow-lg transition-all cursor-pointer group">
+                        <div class="h-32 bg-gradient-to-br from-cyan-50 to-sky-100 flex items-center justify-center">
+                            <svg class="w-12 h-12 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold text-gray-800 mb-1">数据安全规范</span>
+                            <p class="text-sm text-gray-500 mb-3">企业数据管理标准</p>
+                            <div class="flex items-center justify-between">
+                                <span class="px-2 py-1 text-xs bg-cyan-100 text-cyan-700 rounded">规范类</span>
+                                <button class="text-sm text-slate-600 hover:text-slate-800 opacity-0 group-hover:opacity-100 transition-opacity">预览 →</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="text-center text-gray-500 text-sm mt-2">原型 3/3 · 模板选择页</p>
+</div>
+
+</body>
+</html>

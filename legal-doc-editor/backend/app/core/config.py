@@ -6,8 +6,8 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "Legal Doc Editor"
     VERSION: str = "0.1.0"
     
-    # Database
-    DATABASE_URL: str = "postgresql+asyncpg://postgres:postgres@db:5432/legaldoc"
+    # Database (MySQL async)
+    DATABASE_URL: str = "mysql+aiomysql://root:password@localhost:3306/legaldoc"
     
     # Redis
     REDIS_URL: str = "redis://redis:6379/0"

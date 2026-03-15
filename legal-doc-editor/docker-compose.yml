@@ -32,7 +32,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/legaldoc
+      - DATABASE_URL=mysql+aiomysql://root:password@host.docker.internal:3306/legaldoc
       - REDIS_URL=redis://redis:6379/0
       - SECRET_KEY=your-secret-key-change-in-production
     depends_on:

@@ -1,0 +1,50 @@
+=== OpenClaw Skills 推荐方案安装 ===
+开始时间: 2026-03-10 14:36:49
+
+【阶段1/3】安装基础工具...
+[summarize] 开始安装... (14:36:49)
+- Resolving summarize
+[31m✖[39m Rate limit exceeded
+Error: Rate limit exceeded
+[summarize] ✓ 安装成功 (6秒)
+等待 10 秒...
+[github] 开始安装... (14:37:05)
+- Resolving github
+[31m✖[39m {"code":"InternalServerError","message":"Your request couldn't be completed. Try again later."}
+Error: {"code":"InternalServerError","message":"Your request couldn't be completed. Try again later."}
+[github] ✓ 安装成功 (35秒)
+等待 10 秒...
+[wacli] 开始安装... (14:37:50)
+- Resolving wacli
+[31m✖[39m Rate limit exceeded
+Error: Rate limit exceeded
+[wacli] ✓ 安装成功 (20秒)
+等待 10 秒...
+
+【阶段2/3】安装自动化工具...
+[agent-browser] 开始安装... (14:38:20)
+- Resolving agent-browser
+[31m✖[39m Rate limit exceeded
+Error: Rate limit exceeded
+[agent-browser] ✓ 安装成功 (29秒)
+等待 10 秒...
+
+【阶段3/3】安装 AI 进化工具...
+注意: 不安装 self-improving-agent 以避免冲突
+[capability-evolver] 开始安装... (14:38:59)
+- Resolving capability-evolver
+[31m✖[39m Rate limit exceeded
+Error: Rate limit exceeded
+[capability-evolver] ✓ 安装成功 (40秒)
+
+=== 安装完成 ===
+结束时间: 2026-03-10 14:39:39
+
+已安装的技能:
+No installed skills.
+
+安装的目录:
+total 20
+-rw-r--r-- 1 root root  279 Mar 10 12:31 install.log
+-rw-r--r-- 1 root root 1401 Mar 10 14:39 install_recommended.log
+-rw-r--r-- 1 root root  279 Mar 10 12:31 nohup.out
