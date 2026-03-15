@@ -4,25 +4,48 @@
 
 ## 技术栈
 
-- **Backend**: FastAPI + SQLAlchemy + PostgreSQL + Redis
+- **Backend**: FastAPI + SQLAlchemy + MySQL
 - **Frontend**: React 18 + TypeScript + Tailwind + TipTap
 - **DevOps**: Docker + Docker Compose
 
 ## 快速开始
 
+### 方式一：本地开发（推荐）
+
+**1. 准备数据库**
+```sql
+CREATE DATABASE legaldoc CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+**2. 配置后端**
 ```bash
-# 启动所有服务
-docker-compose up -d
-
-# 后端开发
 cd backend
+python3.12 -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-uvicorn app.main:app --reload
+```
 
-# 前端开发
+创建 `.env` 文件：
+```bash
+DATABASE_URL=mysql+aiomysql://root:password@localhost:3306/legaldoc
+SECRET_KEY=your-secret-key
+```
+
+**3. 启动服务**
+```bash
+# 终端1 - 后端
+uvicorn app.main:app --reload --port 8000
+
+# 终端2 - 前端
 cd frontend
 npm install
 npm run dev
+```
+
+### 方式二：Docker 启动
+
+```bash
+docker-compose up -d
 ```
 
 ## 功能特性
