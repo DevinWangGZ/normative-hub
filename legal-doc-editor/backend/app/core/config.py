@@ -9,8 +9,8 @@ class Settings(BaseSettings):
     # Database (MySQL async)
     DATABASE_URL: str = "mysql+aiomysql://root:password@localhost:3306/legaldoc"
     
-    # Redis
-    REDIS_URL: str = "redis://redis:6379/0"
+    # Redis (可选，留空则使用本地内存缓存)
+    REDIS_URL: str = ""
     
     # Security
     SECRET_KEY: str = "your-secret-key-change-in-production"

@@ -33,11 +33,9 @@ services:
       - "8000:8000"
     environment:
       - DATABASE_URL=mysql+aiomysql://root:password@host.docker.internal:3306/legaldoc
-      - REDIS_URL=redis://redis:6379/0
+      - REDIS_URL=  # 留空不使用 Redis
       - SECRET_KEY=your-secret-key-change-in-production
     depends_on:
-      db:
-        condition: service_healthy
       redis:
         condition: service_started
     volumes:
